@@ -1,6 +1,7 @@
 from rest_framework import viewsets, permissions
 from .models import Task
 from .serializers import TaskSerializer
+from .permissions import IsOwner
 
 # Create your views here.
 class TaskViewSet(viewsets.ModelViewSet):
@@ -14,7 +15,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     - DELETE /api/tasks/<id>/ (Delete)
     """
     serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def get_queryset(self):
         # Return tasks only for the authenticated user
